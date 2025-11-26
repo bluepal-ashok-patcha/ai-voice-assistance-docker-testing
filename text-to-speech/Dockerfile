@@ -8,8 +8,7 @@ RUN npm install
 COPY . .
 
 
-# Allow React to listen on all network interfaces
-ENV HOST=0.0.0.0
+
 EXPOSE 3000
 
 CMD ["npm", "start"]
