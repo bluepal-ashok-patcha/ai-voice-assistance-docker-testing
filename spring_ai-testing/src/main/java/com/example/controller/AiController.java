@@ -38,7 +38,7 @@ public class AiController {
 	}
 
 	@GetMapping("/hello")
-	public String getHistory() {
+	public String hello() {
 	    return "Hello from AI Controller";
 	}
 
