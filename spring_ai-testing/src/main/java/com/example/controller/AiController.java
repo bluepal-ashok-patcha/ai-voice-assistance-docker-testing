@@ -20,21 +20,26 @@ import com.example.service.AiService;
 public class AiController {
 	
 	
-	@Autowired
-	private AiService aiService;
+	// @Autowired
+	// private AiService aiService;
 	
 	@Autowired
 	private ConversationRepository conversationRepository;
 	
-	@PostMapping("/ask")
-	public String postAiResponse(@RequestBody String question) {
-	    return aiService.getResponseFromOpenAI(question);
-	}
+	// @PostMapping("/ask")
+	// public String postAiResponse(@RequestBody String question) {
+	//     return aiService.getResponseFromOpenAI(question);
+	// }
 	
 	
 	@GetMapping("/history")
 	public List<Conversation> getHistory() {
 	    return conversationRepository.findAll();
+	}
+
+	@GetMapping("/hello")
+	public String getHistory() {
+	    return "Hello from AI Controller";
 	}
 
 
