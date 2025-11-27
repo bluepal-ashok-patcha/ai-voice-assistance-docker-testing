@@ -2,6 +2,30 @@ version: '3.8'
 
 services:
   
+  mysql:
+    image: mysql:8
+    container_name: mysql-container2
+    environment:
+      MYSQL_ROOT_PASSWORD: ashok
+      MYSQL_DATABASE: ai_assistant
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysqldata:/var/lib/mysql
+    networks:
+      - ashok-nw
+
+  springboot:
+    build:
+      context: ./spring_ai-testing
+      dockerfile: Dockerfile
+    container_name: springboot-app
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    networks:
+      - ashok-nw
 
   react:
     build:
@@ -12,6 +36,8 @@ services:
       - "3000:3000"
     networks:
       - ashok-nw
+  
+
   
 volumes:
   mysqldata:
