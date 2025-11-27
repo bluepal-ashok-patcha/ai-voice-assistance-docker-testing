@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 
-const API_BASE_URL = "http://localhost:8080"; // ✅ Spring Boot port
+const API_BASE_URL = "http://springboot:8080"; // ✅ Spring Boot port
 
 function App() {
   const [notes, setNotes] = useState([]);
