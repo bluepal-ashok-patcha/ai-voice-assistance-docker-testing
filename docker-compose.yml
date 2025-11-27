@@ -11,9 +11,9 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - mysqldata:/var/lib/mysql
+      - mysqldata2:/var/lib/mysql
     networks:
-      - ashok-nw
+      - ashok-nw2
 
   springboot:
     build:
@@ -25,7 +25,7 @@ services:
     ports:
       - "8080:8080"
     networks:
-      - ashok-nw
+      - ashok-nw2
 
   react:
     build:
@@ -33,15 +33,15 @@ services:
       dockerfile: Dockerfile 
     container_name: react-app
     ports:
-      - "3000:3000"
+      - "3000:80"
     networks:
-      - ashok-nw
+      - ashok-nw2
   
 
   
 volumes:
-  mysqldata:
+  mysqldata2:
 
 networks:
-  ashok-nw:
+  ashok-nw2:
     driver: bridge
