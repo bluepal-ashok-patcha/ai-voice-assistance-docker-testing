@@ -26,10 +26,12 @@ public class AiController {
 	@Autowired
 	private ConversationRepository conversationRepository;
 	
-	// @PostMapping("/ask")
-	// public String postAiResponse(@RequestBody String question) {
-	//     return aiService.getResponseFromOpenAI(question);
-	// }
+	@PostMapping("/ask")
+	public String postAiResponse(@RequestBody String question) {
+	    // return aiService.getResponseFromOpenAI(question);
+
+		return "AI Service is currently unavailable.";
+	}
 	
 	
 	@GetMapping("/history")
