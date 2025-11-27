@@ -2,40 +2,40 @@ version: '3.8'
 
 services:
   
-  # mysql:
-  #   image: mysql:8
-  #   container_name: mysql-container2
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: ashok
-  #     MYSQL_DATABASE: ai_assistant
-  #   ports:
-  #     - "3306:3306"
-  #   volumes:
-  #     - mysqldata2:/var/lib/mysql
-  #   networks:
-  #     - ashok-nw2
-
-  # springboot:
-  #   build:
-  #     context: ./spring_ai-testing
-  #     dockerfile: Dockerfile
-  #   container_name: springboot-app
-  #   depends_on:
-  #     - mysql
-  #   ports:
-  #     - "8080:8080"
-  #   networks:
-  #     - ashok-nw2
-
-  react:
-    build:
-      context: ./text-to-speech
-      dockerfile: Dockerfile 
-    container_name: react-app
+  mysql:
+    image: mysql:8
+    container_name: mysql-container2
+    environment:
+      MYSQL_ROOT_PASSWORD: ashok
+      MYSQL_DATABASE: ai_assistant
     ports:
-      - "3000:80"
+      - "3306:3306"
+    volumes:
+      - mysqldata2:/var/lib/mysql
     networks:
       - ashok-nw2
+
+  springboot:
+    build:
+      context: ./spring_ai-testing
+      dockerfile: Dockerfile
+    container_name: springboot-app
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    networks:
+      - ashok-nw2
+
+  # react:
+  #   build:
+  #     context: ./text-to-speech
+  #     dockerfile: Dockerfile 
+  #   container_name: react-app
+  #   ports:
+  #     - "3000:80"
+  #   networks:
+  #     - ashok-nw2
   
 
   
