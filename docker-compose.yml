@@ -30,15 +30,7 @@ services:
     networks:
       - ashok-nw
 
-  react:
-    build:
-      context: ./text-to-speech
-      dockerfile: Dockerfile 
-    container_name: react-app
-    ports:
-      - "3000:3000"
-    networks:
-      - ashok-nw
+  
 
 
 volumes:
