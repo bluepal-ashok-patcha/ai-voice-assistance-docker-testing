@@ -34,15 +34,15 @@ services:
     networks:
       - ashok-nw2
 
-  # react:
-  #   build:
-  #     context: ./text-to-speech
-  #     dockerfile: Dockerfile 
-  #   container_name: react-app
-  #   ports:
-  #     - "3000:80"
-  #   networks:
-  #     - ashok-nw2
+  react:
+    build:
+      context: ./text-to-speech
+      dockerfile: Dockerfile 
+    container_name: react-app
+    ports:
+      - "3000:80"
+    networks:
+      - ashok-nw2
   
 
   
