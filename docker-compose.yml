@@ -14,6 +14,12 @@ services:
       - mysqldata2:/var/lib/mysql
     networks:
       - ashok-nw2
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-pashok"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
 
   springboot:
     build:
@@ -21,7 +27,8 @@ services:
       dockerfile: Dockerfile
     container_name: springboot-app
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     ports:
       - "8080:8080"
     networks:
