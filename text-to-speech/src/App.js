@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 
 // const API_BASE_URL = `${window.location.protocol}//${window.location.hostname}:8080`;
-const API_BASE_URL ="https://ai-voice-assistance-docker-testing-1.onrender.com"
+const API_BASE_URL ="https://ai-voice-assistance-docker-testing-1.onrender.com";
 
 
 // SVG Icons
