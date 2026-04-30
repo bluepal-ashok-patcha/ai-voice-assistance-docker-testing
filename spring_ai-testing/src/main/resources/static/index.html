@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notes App</title>
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
+            background: #f5f7fb;
+            margin: 0;
+            color: #1f2937;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        /* Input card */
+        .form-card {
+            background: #ffffff;
+            padding: 20px;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #2563eb;
+        }
+
+        textarea {
+            resize: none;
+            height: 90px;
+        }
+
+        .btn {
+            margin-top: 12px;
+            padding: 10px 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-add {
+            background: #111827;
+            color: white;
+            width: 100%;
+        }
+
+        .btn-add:hover {
+            background: #1f2937;
+        }
+
+        /* Notes grid */
+        .notes-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        /* Note card */
+        .note-card {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .note-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .note-content {
+            font-size: 14px;
+            color: #4b5563;
+        }
+
+        .delete-btn {
+            background: none;
+            border: 1px solid #ef4444;
+            color: #ef4444;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .delete-btn:hover {
+            background: #ef4444;
+            color: white;
+        }
+
+        /* Empty state */
+        .empty {
+            text-align: center;
+            color: #6b7280;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📝 Notes Manager</h1>
+
+    <!-- Input Section -->
+    <div class="form-card">
+        <input id="title" placeholder="Note title">
+        <textarea id="content" placeholder="Write your note..."></textarea>
+        <button class="btn btn-add" onclick="addNote()">Add Note</button>
+    </div>
+
+    <!-- Notes -->
+    <div id="notes" class="notes-grid"></div>
+
+</div>
+
+<script>
+const API = "/api/notes";
+
+async function loadNotes() {
+    const res = await fetch(API);
+    const data = await res.json();
+
+    const container = document.getElementById("notes");
+    container.innerHTML = "";
+
+    if (data.length === 0) {
+        container.innerHTML = `<div class="empty">No notes yet</div>`;
+        return;
+    }
+
+    data.forEach(note => {
+        container.innerHTML += `
+            <div class="note-card">
+                <div>
+                    <div class="note-title">${note.title}</div>
+                    <div class="note-content">${note.content}</div>
+                </div>
+                <button class="delete-btn" onclick="deleteNote(${note.id})">Delete</button>
+            </div>
+        `;
+    });
+}
+
+async function addNote() {
+    const title = document.getElementById("title").value;
+    const content = document.getElementById("content").value;
+
+    if (!title || !content) return;
+
+    await fetch(API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title, content })
+    });
+
+    document.getElementById("title").value = "";
+    document.getElementById("content").value = "";
+
+    loadNotes();
+}
+
+async function deleteNote(id) {
+    await fetch(`${API}/${id}`, { method: "DELETE" });
+    loadNotes();
+}
+
+loadNotes();
+</script>
+
+</body>
+</html>
